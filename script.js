@@ -37,11 +37,20 @@ const operate = function(op, f, s) {
 }
 
 const rotateDisplay2 = function(op) {
-    userInput.push(display2.innerText);
-    if (op) userInput.push(op); 
-    display.innerText += display2.innerText;
-    if (op) display.innerText += op;
-    display2.innerText = '';
+    if (display2.innerText) userInput.push(display2.innerText);
+    if (userInput.length == 3) {
+        result();
+        if (op) userInput.push(op);
+        display2.innerText = '';
+        display.innerText = userInput[0];
+        if (op) display.innerText += op;
+    } else {
+        if (op) userInput.push(op); 
+        display.innerText += display2.innerText;
+        if (op) display.innerText += op;
+        display2.innerText = '';
+    }
+    //console.log(userInput.length);
 }
 
 const addEventL = function() {
@@ -49,7 +58,7 @@ const addEventL = function() {
         let number = numbers[i];
         //console.log(numbers[i]);
         number.addEventListener('click', () => {
-            display2.innerText += i+1;
+            display2.innerText += i;
         })
     }
 
@@ -59,7 +68,7 @@ const addEventL = function() {
     mulB.addEventListener('click', () => rotateDisplay2('*'));
     divB.addEventListener('click', () => rotateDisplay2('/'));
     
-    enterB.addEventListener('click', () => result());
+    enterB.addEventListener('click', () => rotateDisplay2());
      // subB.addEventListener('click', () => {
     //     display.innerText += -;
     // });
@@ -69,34 +78,50 @@ const addEventL = function() {
     // })
 }
 
+
+
 const result = function() {
-    rotateDisplay2();
+    //if (append !== 'no append') rotateDisplay2();
     // for (i = 0; i < userInput.length; i++) {
     //     console.log(userInput[i]);
     // }
     console.log(userInput);
-
-    for (i = 0; i < userInput.length; i++) {
-        let tmp = 0;
-        if (userInput[i] == '+') {
-            
-            // console.log(userInput[i-1]);
-            // console.log('+');
-            // console.log(userInput[i+1]);
-            // console.log(add(userInput[i-1],userInput[i+1]))
-
-            userInput[i] = add(userInput[i-1],userInput[i+1]);
-              console.log(userInput);
-            userInput.splice(i-1, 1);
-              console.log(userInput);
-            userInput.splice(i,1);
-              console.log(userInput);
-            i -= 2;
-              console.log(i);
-        }
-    }
+    let tmp = 0;
+    tmp = operate(userInput[1], userInput[0], userInput[2]);
+    userInput=[];
+    userInput.push(tmp);
     console.log(userInput);
 }
+
+
+// old function logic - computes all numbers at once
+//for (i = 0; i < userInput.length; i++) {
+       // let tmp = 0;
+        // if (userInput[i] == '+' || userInput[i] == '-') {
+        //     // console.log(userInput[i-1]);
+        //     // console.log('+');
+        //     // console.log(userInput[i+1]);
+        //     // console.log(add(userInput[i-1],userInput[i+1]))
+
+        //     userInput[i] = add(userInput[i-1],userInput[i+1]);
+        //       console.log(userInput);
+        //     userInput.splice(i-1, 1);
+        //       console.log(userInput);
+        //     userInput.splice(i,1);
+        //       console.log(userInput);
+        //     i -= 2;
+        //       console.log(i);
+        // }
+        // if (userInput[i] == '*' || userInput[i] == '/') {
+        //     userInput[i] = operate(userInput[i], userInput[i-1], userInput[i+1]);
+        //     userInput.splice(i-1, 1);
+        //     userInput.splice(i,1);
+        //     i -= 2;
+        //     console.log(userInput);
+        // } 
+    // }
+//}
+
 
 //let userNumbers = [];
 //let userOperators = [];
