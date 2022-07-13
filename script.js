@@ -69,7 +69,8 @@ const addEventL = function() {
     divB.addEventListener('click', () => rotateDisplay2('/'));
     
     enterB.addEventListener('click', () => rotateDisplay2());
-     // subB.addEventListener('click', () => {
+    clearB.addEventListener('click', () => clear());
+    // subB.addEventListener('click', () => {
     //     display.innerText += -;
     // });
 
@@ -94,7 +95,7 @@ const result = function() {
 }
 
 
-// old function logic - computes all numbers at once
+// old function logic - compute all numbers at once, do 2 for loops for mul/div and add/sub
 //for (i = 0; i < userInput.length; i++) {
        // let tmp = 0;
         // if (userInput[i] == '+' || userInput[i] == '-') {
@@ -123,8 +124,13 @@ const result = function() {
 //}
 
 
-//let userNumbers = [];
-//let userOperators = [];
+const clear = function() {
+    userInput = [];
+    display.innerText = '';
+    display2.innerText = '';
+}
+
+
 let userInput = [];
 let display = document.getElementById('display');
 let display2 = document.getElementById('display2');
