@@ -39,24 +39,27 @@ const operate = function(op, f, s) {
 const rotateDisplay2 = function(op) {
     if (display2.innerText) userInput.push(display2.innerText);
     if (userInput.length == 3) {
+        if (userInput[0] == 0 && userInput[1] == '/' && userInput[2] == 0) {
+            // divide by zero
+            alert('How could you?');
+        }
         result();
-        if (op) userInput.push(op);
-        display2.innerText = '';
         display.innerText = userInput[0];
-        if (op) display.innerText += op;
     } else {
-        if (op) userInput.push(op); 
         display.innerText += display2.innerText;
-        if (op) display.innerText += op;
-        display2.innerText = '';
     }
+    if (op) {
+        userInput.push(op);
+        display.innerText += op;
+    }
+    display2.innerText = '';
+
     //console.log(userInput.length);
 }
 
 const addEventL = function() {
     for (let i = 0; i < numbers.length; i++) {
         let number = numbers[i];
-        //console.log(numbers[i]);
         number.addEventListener('click', () => {
             display2.innerText += i;
         })
@@ -70,22 +73,11 @@ const addEventL = function() {
     
     enterB.addEventListener('click', () => rotateDisplay2());
     clearB.addEventListener('click', () => clear());
-    // subB.addEventListener('click', () => {
-    //     display.innerText += -;
-    // });
-
-    // mulB.addEventListener('click', () => {
-    //     display.innerText += *;
-    // })
 }
 
 
 
 const result = function() {
-    //if (append !== 'no append') rotateDisplay2();
-    // for (i = 0; i < userInput.length; i++) {
-    //     console.log(userInput[i]);
-    // }
     console.log(userInput);
     let tmp = 0;
     tmp = operate(userInput[1], userInput[0], userInput[2]);
